@@ -1,0 +1,6 @@
+/.env
+/flask_app/.env
+/.venv
+*.pyc
+__pycache__/
+.DS_Store

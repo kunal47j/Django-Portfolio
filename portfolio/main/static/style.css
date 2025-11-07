@@ -82,3 +82,13 @@ html {
   background-color: #7c3aed;
   border-radius: 10px;
 }
+
+/* Enhanced project-card hover overlay and image zoom */
+/* Project cards use the same simple hover style as skill cards */
+.project-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.project-card:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+}

@@ -1,0 +1,84 @@
+/* Custom CSS for animations and effects */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+.skill-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.15), 0 2px 8px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(90deg, #312e81 0%, #9333ea 100%);
+    color: #fff;
+}
+
+.project-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(90deg, #1e293b 0%, #6366f1 100%);
+    color: #fff;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Social icon enhancements */
+.flex.space-x-8.mt-6 a {
+  font-size: 1.5rem; /* text-2xl */
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.1);
+  color: #60a5fa; /* blue-400 */
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.15);
+  padding: 0.75rem; /* p-3 */
+  transition: all 0.3s;
+}
+.flex.space-x-8.mt-6 a:hover {
+  color: #fff;
+  background: #2563eb; /* blue-600 */
+}
+
+/* Scrollbar styles for project slider */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-purple-600 {
+  scrollbar-color: #7c3aed transparent;
+}
+
+.scrollbar-thumb-purple-600::-webkit-scrollbar {
+  height: 6px;
+}
+
+.scrollbar-thumb-purple-600::-webkit-scrollbar-thumb {
+  background-color: #7c3aed;
+  border-radius: 10px;
+}

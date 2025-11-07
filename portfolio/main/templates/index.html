@@ -1,0 +1,463 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunal Janbandhu | My Personal Portfolio | Python Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+    .skill-card:hover {
+        transform: translateY(-8px) scale(1.04) !important;
+        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.15), 0 2px 8px 0 rgba(0,0,0,0.10) !important;
+        background: linear-gradient(90deg, #312e81 0%, #9333ea 100%) !important;
+        color: #fff !important;
+    }
+    .project-card:hover {
+        transform: translateY(-8px) scale(1.04) !important;
+        box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.18), 0 2px 8px 0 rgba(0,0,0,0.10) !important;
+        background: linear-gradient(90deg, #1e293b 0%, #6366f1 100%) !important;
+        color: #fff !important;
+    }
+    </style>
+</head>
+<body class="bg-black font-sans">
+    <!-- Messages -->
+    {% if messages %}
+        <div id="django-messages" class="container mx-auto px-4 pt-6">
+            {% for message in messages %}
+                <div class="mb-4 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-600 text-white{% elif message.tags == 'error' %}bg-red-600 text-white{% else %}bg-gray-800 text-white{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        <script>
+            setTimeout(function() {
+                var msg = document.getElementById('django-messages');
+                if (msg) { msg.style.display = 'none'; }
+            }, 2000);
+        </script>
+    {% endif %}
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-black shadow-md z-50">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#home" class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent shadow-lg" style="font-family: 'Pacifico', cursive;">Portfolio</a>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-4 lg:space-x-8 justify-center w-full">
+                    <a href="#home" class="nav-link text-white font-bold hover:text-blue-400 text-base lg:text-lg">Home</a>
+                    <a href="#about" class="nav-link text-white font-bold hover:text-blue-400 text-base lg:text-lg">About</a>
+                    <a href="#skills" class="nav-link text-white font-bold hover:text-blue-400 text-base lg:text-lg">Skills</a>
+                    <a href="#projects" class="nav-link text-white font-bold hover:text-blue-400 text-base lg:text-lg">Projects</a>
+                    <a href="#contact" class="nav-link text-white font-bold hover:text-blue-400 text-base lg:text-lg">Contact</a>
+                </div>
+                <div class="hidden md:flex items-center">
+                    <form action="/media/Kunal_Resume.pdf" method="get" style="display:inline;">
+                        <button type="submit" class="flex items-center gap-2 border-2 border-transparent bg-clip-padding bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg px-5 py-2 font-semibold text-white hover:from-pink-500 hover:to-purple-600 transition-all duration-300" style="box-shadow: 0 0 8px 2px #a21caf55;">
+                            Resume
+                            <svg xmlns="/media/Kunal_Resume.pdf" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" /></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <a href="#home" class="block py-2 font-bold text-white hover:text-blue-400">Home</a>
+                <a href="#about" class="block py-2 font-bold text-white hover:text-blue-400">About</a>
+                <a href="#skills" class="block py-2 font-bold text-white hover:text-blue-400">Skills</a>
+                <a href="#projects" class="block py-2 font-bold text-white hover:text-blue-400">Projects</a>
+                <a href="#contact" class="block py-2 font-bold text-white hover:text-blue-400">Contact</a>
+                <form action="/media/Kunal_Resume.pdf" method="get" style="display:inline;">
+                    <button type="submit" class="block mt-2 bg-blue-600 text-white font-bold px-4 py-2 rounded-md hover:bg-blue-700 transition w-full text-center">Resume</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex flex-col-reverse md:flex-row items-center pt-6 md:pt-20 bg-black">
+        <div class="container mx-auto px-4 sm:px-6 py-10 md:py-20 flex flex-col-reverse md:flex-row items-center">
+            <div class="w-full md:w-1/2 mb-10 md:mb-0 fade-in md:ml-8 lg:ml-16 text-left">
+                <p class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-1">Hi! my name is,</p>
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-purple-700 via-blue-300 to-pink-300 bg-clip-text text-transparent">_Kunal.</h1>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-2">I'm a Python Developer.</h2>
+                <span id="typing-text" class="block text-base sm:text-lg md:text-xl bg-gradient-to-r from-purple-700 via-blue-300 to-pink-300 bg-clip-text text-transparent h-8 mb-0"></span>
+                <p class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-8">I create Exciting Stuff on the Internet.</p>
+                <div class="flex justify-start space-x-4 sm:space-x-6 md:space-x-8 mt-6">
+                    <a href="https://github.com/kunal47j" class="text-xl sm:text-2xl rounded-full bg-white/10 text-blue-400 hover:text-white hover:bg-blue-600 shadow-lg p-2 sm:p-3 transition duration-300" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/kunal-janbandhu-090939301?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bl54eydEGR8WZe4dFnUPtpA%3D%3D" class="text-xl sm:text-2xl rounded-full bg-white/10 text-blue-400 hover:text-white hover:bg-blue-600 shadow-lg p-2 sm:p-3 transition duration-300" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://x.com/kunal7janbandhu" class="text-xl sm:text-2xl rounded-full bg-white/10 text-blue-400 hover:text-white hover:bg-blue-600 shadow-lg p-2 sm:p-3 transition duration-300" title="Twitter X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/_kunal__janbandhu_/" class="text-xl sm:text-2xl rounded-full bg-white/10 text-blue-400 hover:text-white hover:bg-blue-600 shadow-lg p-2 sm:p-3 transition duration-300" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 flex justify-center fade-in delay-1 mt-10 md:mt-0">
+                <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center">
+                    <div class="absolute top-1/2 left-1/2 w-56 h-56 sm:w-80 sm:h-80 md:w-80 md:h-80 rounded-full opacity-90" style="transform: translate(-50%, -50%); z-index:1; animation: light-rotate 3s linear infinite; background: conic-gradient(from 0deg, #7c3aed, #3b82f6, #06b6d4, #f472b6, #7c3aed 100%); box-shadow: 0 0 96px 48px #7c3aed99, 0 0 128px 64px #3b82f688; mask-image: radial-gradient(circle, transparent 70%, black 72%, black 100%); -webkit-mask-image: radial-gradient(circle, transparent 70%, black 72%, black 100%);"></div>
+                    <img src="/media/_MG_9108-removebg-preview.png" alt="kunal's Avatar" class="rounded-full w-56 h-56 sm:w-80 sm:h-80 md:w-80 md:h-80 object-cover shadow-xl absolute left-1/2 top-1/2" style="transform: translate(-50%, -50%); z-index:2;">
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+// Typing animation for the home section
+const typingText = document.getElementById('typing-text');
+const phrases = [
+    'Backend Enthusiast.',
+    'Full Stack Developer.',
+    'Open Source Contributor.',
+    'Lifelong Learner.'
+];
+let phraseIndex = 0;
+let charIndex = 0;
+let typing = true;
+
+function type() {
+    if (typing) {
+        if (charIndex < phrases[phraseIndex].length) {
+            typingText.textContent += phrases[phraseIndex][charIndex];
+            charIndex++;
+            setTimeout(type, 80);
+        } else {
+            typing = false;
+            setTimeout(type, 1200);
+        }
+    } else {
+        if (charIndex > 0) {
+            typingText.textContent = phrases[phraseIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(type, 40);
+        } else {
+            typing = true;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(type, 400);
+        }
+    }
+}
+type();
+
+// Mobile menu toggle
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+    });
+    // Close menu when any link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+}
+    </script>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-black">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex items-center mb-8">
+                <span class="text-purple-600 text-2xl font-bold mr-2">&lt;</span>
+                <h2 class="text-3xl font-bold text-white mr-2">About Me</h2>
+                <span class="text-purple-600 text-2xl font-bold ml-2">&gt;</span>
+                <div class="flex-1 h-px bg-gradient-to-r from-purple-600 to-transparent ml-4"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center fade-in">
+                    <img src="/media/_MG_9108-removebg-preview.png" alt="Kunal's Avatar" class="rounded-full w-40 h-40 md:w-56 md:h-56 object-cover shadow-xl">
+                </div>
+                <div class="hidden md:block w-px h-48 mx-8 bg-gradient-to-b from-blue-500 to-purple-500"></div>
+                <div class="md:w-2/3 md:pl-12 fade-in delay-1">
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Hey there! 👋🏻</h3>
+                    <p class="text-gray-300 mb-4">
+                        I’m a Python Full Stack Developer with experience in creating full-featured web applications using Django and Flask. I manage both backend and frontend development to deliver smooth and efficient user experiences
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        My core skills include Python, Django, Flask, MySQL, MongoDB, HTML, CSS, JavaScript, and REST APIs. I specialize in backend logic, API integrations, and building clean, scalable web solutions.
+                    </p>
+                    <p class="text-gray-300">
+                        I’m passionate about backend development, clean architecture, and solving real-world problems through code. I'm eager to contribute to challenging projects and grow as a full-stack developer in a collaborative environment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-black">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex items-center mb-8">
+                <span class="text-purple-600 text-2xl font-bold mr-2">&lt;</span>
+                <h2 class="text-3xl font-bold text-white mr-2">Skills</h2>
+                <span class="text-purple-600 text-2xl font-bold ml-2">&gt;</span>
+                <div class="flex-1 h-px bg-gradient-to-r from-purple-600 to-transparent ml-4"></div>
+            </div>
+            <!-- Front-End Skills -->
+            <div class="mb-16 fade-in delay-1">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-white">Front-End</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/html-5-svgrepo-com.svg" alt="HTML" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">HTML</span>
+                    </a>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/css-3-svgrepo-com.svg" alt="CSS" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">CSS</span>
+                    </a>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/js-official-svgrepo-com.svg" alt="JavaScript" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">JavaScript</span>
+                    </a>
+                    <a href="https://www.typescriptlang.org/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/bootstrap-svgrepo-com.svg" alt="TypeScript" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">Bootstrap</span>
+                    </a>
+                    <a href="https://tailwindcss.com/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/tailwind-svgrepo-com.svg" alt="Tailwind" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">Tailwind</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Back-End Skills -->
+            <div class="mb-16 fade-in delay-2">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-white">Back-End</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <a href="https://nodejs.org/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/python-svgrepo-com.svg" alt="Node.js" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">Python</span>
+                    </a>
+                    <a href="https://expressjs.com/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/django-svgrepo-com.svg" alt="Express.js" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">Django</span>
+                    </a>
+                    <a href="https://www.mongodb.com/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/flask-svgrepo-com.svg" alt="MongoDB" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">Flask</span>
+                    </a>
+                    <a href="https://firebase.google.com/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/mongodb-svgrepo-com.svg" alt="Firebase" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">MongoDB</span>
+                    </a>
+                    <a href="https://www.mysql.com/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/mysql-svgrepo-com.svg" alt="MySQL" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">MySQL</span>
+                    </a>
+                    <a href="https://edgestore.dev/" class="skill-card bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center transition duration-300">
+                        <img src="/media/api-interface-svgrepo-com.svg" alt="Edge Store" class="h-12 w-12 mb-2">
+                        <span class="text-gray-700">Rest</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Projects Section -->
+<!-- Projects Section -->
+<section id="projects" class="py-20 bg-black">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="flex items-center mb-8">
+            <span class="text-purple-600 text-2xl font-bold mr-2">&lt;</span>
+            <h2 class="text-3xl font-bold text-white mr-2">My Projects</h2>
+            <span class="text-purple-600 text-2xl font-bold ml-2">&gt;</span>
+            <div class="flex-1 h-px bg-gradient-to-r from-purple-600 to-transparent ml-4"></div>
+        </div>
+        <div id="project-slider" class="flex flex-nowrap space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-900">
+            <!-- Example Project Card -->
+            <div class="project-card bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 fade-in flex-shrink-0 w-80">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80" alt="ARMS v3" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 text-white">GitHub Webhook Event Tracker</h3>
+                    <p class="text-gray-300 mb-4">
+                        A tool to monitor, log, and visualize GitHub webhook events in real time. Built with Flask, WebSockets, and Chart.js for live event tracking and analytics
+                    </p>
+                    <a href="https://github.com/kunal47j/github-webhook-receiver" class="text-blue-400 hover:underline mb-4 inline-block">Link...</a>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Python</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">HTML5</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">CSS3</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">JavaScript</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Git Webhook</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Portfolio Website Project Card -->
+            <div class="project-card bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 fade-in flex-shrink-0 w-80">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Portfolio Website" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 text-white">Portfolio Website</h3>
+                    <p class="text-gray-300 mb-4">
+                        A modern, animated portfolio website using Python, Django, Tailwind CSS, JavaScript and custom CSS. Fully responsive and easy to customize.
+                    </p>
+                    <a href="#" class="text-blue-400 hover:underline mb-4 inline-block">Link...</a>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">HTML5</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">CSS3</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">JavaScript</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Tailwind</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Python</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Django</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Weather App Project Card -->
+            <div class="project-card bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 fade-in flex-shrink-0 w-80">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Weather App" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 text-white">Weather App</h3>
+                    <p class="text-gray-300 mb-4">
+                        A beautiful weather app built with Flask and OpenWeatherMap API. Features real-time weather, animated icons, and responsive design.
+                    </p>
+                    <a href="https://github.com/kunal47j/FlaskProject" class="text-blue-400 hover:underline mb-4 inline-block">Link...</a>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">HTML5</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">CSS3</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Python</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Flask</span>
+                        <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">OpenWeatherMap API</span>
+                    </div>
+                </div>
+            </div>
+            <!-- New Project Card -->
+           <div class="project-card bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 fade-in flex-shrink-0 w-80">
+    <div class="relative">
+        <img src="https://itchronicles.com/wp-content/uploads/2020/10/speech-to-text-1024x683.jpg" alt="TTS Converter" class="w-full h-48 object-cover">
+    </div>
+    <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2 text-white">Text-to-Speech Converter</h3>
+        <p class="text-gray-300 mb-4">
+            A Python-based TTS conversion system with voice selection, speed control, and female voice options. Implemented with pyttsx3 for offline speech synthesis and a sleek UI using Tailwind CSS and JavaScript.
+        </p>
+        <a href="https://github.com/kunal47j/tts_converter" class="text-blue-400 hover:underline mb-4 inline-block">Link..</a>
+        <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Python</span>
+            <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">pyttsx3</span>
+            <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">JavaScript</span>
+            <span class="text-xs bg-gray-800 text-gray-200 px-2 py-1 rounded">Tailwind CSS</span>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex items-center mb-8">
+                <span class="text-purple-600 text-2xl font-bold mr-2">&lt;</span>
+                <h2 class="text-3xl font-bold text-white mr-2">Contact</h2>
+                <span class="text-purple-600 text-2xl font-bold ml-2">&gt;</span>
+                <div class="flex-1 h-px bg-gradient-to-r from-purple-600 to-transparent ml-4"></div>
+            </div>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Let's collaborate!</h3>
+                    <p class="text-gray-300 mb-6">
+                        Contact me to discuss your web development needs or just to say hello. 😉
+                    </p>
+                    <div class="flex space-x-4 mb-8">
+                        <a href="https://www.instagram.com/_kunal__janbandhu_/" class="text-gray-700 hover:text-blue-600 text-2xl" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="mailto:janbandhukunal47@gmail.com" class="text-gray-700 hover:text-blue-600 text-2xl" title="Gmail">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://x.com/kunal7janbandhu" class="text-gray-700 hover:text-blue-600 text-2xl" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                    <img src="https://chiragchrg.netlify.app/_astro/ContactVector.DmyxvpE4_ZhU9ee.svg" alt="Contact Art" class="w-full max-w-md mx-auto">
+                </div>
+                <div class="md:w-1/2 md:pl-12 fade-in delay-1">
+                    <form method="post" class="bg-gray-950 p-6 rounded-lg shadow-md w-full max-w-xl mx-auto">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="block text-gray-300 mb-2" for="id_name">Name</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-300 mb-2" for="id_email">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-300 mb-2" for="id_message">Message</label>
+                            {{ form.message }}
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-black text-white py-10">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="/media/letter-k.png" alt="Logo" class="h-8 w-8 mr-2">
+                    <span class="text-xl font-bold">Kunal_Janbandhu | Portfolio</span>
+                </div>
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    <a href="https://www.facebook.com" class="text-gray-300 hover:text-white">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://x.com/kunal7janbandhu" class="text-gray-300 hover:text-white">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/_kunal__janbandhu_/" class="text-gray-300 hover:text-white">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/kunal-janbandhu-090939301?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bl54eydEGR8WZe4dFnUPtpA%3D%3D" class="text-gray-300 hover:text-white">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/kunal47j" class="text-gray-300 hover:text-white">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+                <p>Kunal_Janbandhu</p>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+<style>
+@keyframes light-rotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+textarea[name="message"] {
+    min-height: 10rem;
+    width: 100%;
+    max-width: 100%;
+}
+input[name="name"], input[name="email"] {
+    width: 100%;
+    max-width: 100%;
+}
+</style>
+</html> 
